@@ -1,6 +1,8 @@
 *.swp
 *.swo
 
+data/data_series_tec.pkl.xz
+
 __pycache__/*
 
 .ipynb_checkpoints/*
