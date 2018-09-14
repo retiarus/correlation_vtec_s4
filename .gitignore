@@ -2,6 +2,8 @@
 *.swo
 
 data/data_series_tec.pkl.xz
+data/data_series_tec_first_derivative.pkl.xz
+data/data_series_tec_second_derivative.pkl.xz
 
 __pycache__/*
 
