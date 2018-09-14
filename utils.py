@@ -1,7 +1,8 @@
 import os
 
 default_location = "."
-local_tecmap_txt = os.path.join(default_location, 'data/tecmap_txt' )
+local_tecmap_txt = os.path.join(default_location, 'data/tecmap_txt')
+local_data = os.path.join(default_location, 'data')
 local_s4 = os.path.join(default_location, 'data_s4')
 local_s4_pre = os.path.join(default_location, 'data_s4_pre')
 
