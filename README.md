@@ -48,7 +48,7 @@ Os dados de estações consistem na idenfiticação das estações que realizam 
 
 Os seguintes notebooks realizam os processamentos desenvolvidos neste trabalho:
 
-* 00_extract_valid_stations.ipynb
+* [00_extract_valid_stations.ipynb](./00_extract_valid_stations.ipynb)
 * 00_generate_vtec_dataframe.ipynb
 * 01_preprocessing_s4_data.ipynb
 * 02_generate_first_second_derivative_time_vtec_df.ipynb
