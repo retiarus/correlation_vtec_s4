@@ -1,5 +1,9 @@
 import os
 
+import numpy as np
+
+from scipy.signal import convolve, gaussian, savgol_filter
+
 default_location = "."
 local_tecmap_txt = os.path.join(default_location, 'data/tecmap_txt')
 local_data = os.path.join(default_location, 'data')
@@ -42,3 +46,19 @@ def first_order_derivative_time(data):
         result.append(data[i] - data[i-1])
         
     return result
+
+def smooth_signal(sig):
+    window_gaussian = gaussian(window, std=1)
+    window_gaussian = window_gaussian/window_gaussian.sum()
+    par = window//2
+    
+    # aplication of the filters
+    sig = savgol_filter(sig, window, 3)
+    sig = convolve(sig, window_gaussian, mode='same')
+    
+    for i in range(0, par):
+        sig[i] = np.nan
+    for i in range(-1, -(par+1), -1):
+        sig[i] = np.nan
+    
+    return sig
