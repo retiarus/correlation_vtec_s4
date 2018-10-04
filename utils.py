@@ -62,3 +62,15 @@ def smooth_signal(sig):
         sig[i] = np.nan
     
     return sig
+
+class Scale(object):
+    def __init__(self, value_min, value_max):
+        self._value_min = value_min
+        self._value_max = value_max
+        self._desvio = self._value_max - self._value_min
+        
+    def __call__(self, x_array):
+        x = x_array.copy()
+        x = (x - self._value_min)/self._desvio
+        x = x*self._desvio + self._value_min
+        return x
