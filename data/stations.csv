@@ -1,55 +1,55 @@
-,identificationstation,alias,height,latitude,longitude,network,state,city,startoperation,stopoperation
-0,bov,null,69.18,2.83392,-60.69538,lisn,rr,boa vista,,
-1,blm,null,0.0,-1.31536,-48.28837,lisn,pa,belem,,
-2,sl2,null,0.0,-2.59345,-44.2124,lisn,ma,sao luis,,
-3,san,null,76.5,-2.43,-54.7,lisn,pa,santarem,,
-4,par,null,11.88,-2.61,-57.733,lisn,am,parintins,,
-5,mn2,null,46.63,-3.10194,-59.9745,lisn,am,manaus,,
-6,tfe,null,0.057,-3.18,-64.44,lisn,am,tefe,,
-7,imp,null,134.72,-5.31,-47.28,lisn,ma,imperatriz,,
-8,nta,null,0.0,-5.836162,-35.121,lisn,rn,natal,,
-9,sjo,null,456.28,-7.38,-36.51,lisn,pb,sao joao do cariri,,
-10,pvh,null,1130.0,-8.49,-63.55,lisn,ro,porto velho,,
-11,pln,null,434.34,-9.23,-40.3,lisn,pe,petrolina,,
-12,rbr,null,142.951,-9.58,-67.51,lisn,ac,rio branco,,
-13,afl,null,267.0,-9.9,-55.9,lisn,mt,alta floresta,,
-14,ios,null,0.0,-14.47,-39.1,lisn,ba,ilheus,,
-15,cub,null,278.0,-15.5552,-56.0698,lisn,mt,cuiaba,,
-16,bsa,null,1050.0,-15.7642,-47.8694,lisn,df,brasilia,,
-17,bhz,null,858.0,-19.8685,-47.8694,lisn,mg,belo horizonte,,
-18,ppt,null,421.0,-21.12,-51.4085,lisn,sp,presidente prudente,,
-19,dou,null,756.12,-22.11,-54.55,lisn,ms,dourados,,
-20,cpa,null,580.0,-22.41,-45.0,lisn,sp,cachoeira paulista,,
-21,sj2,null,593.44,-23.2076,-45.8598,lisn,sp,sao jose dos campos,,
-22,plm,null,1107.03,-26.512,-51.9857,lisn,pr,palmas,,
-23,sta,null,110.1,-29.712591,-53.717206,lisn,rs,santa maria,,
-24,14,sjce,,-23.207,-45.859,septentrio,sp,são josé dos campos(inpe),,
-25,26,ufba,,-13.001,-38.508,septentrio,ba,salvador,,
-26,9,olmp,,-20.717,-48.91,septentrio,sp,olimpia,,
-27,20,cg01,,-20.497,-54.615,septentrio,ms,campo grande,,
-28,19,pru3,,-22.12,-51.407,septentrio,sp,presidente prudente,,
-29,37,mac3,,-22.823,-43.238,septentrio,rj,macaé,,
-30,32,bacg,,-20.497,-54.615,septentrio,ms,campos grande,,
-31,2,mana,,-3.1,-59.976,septentrio,am,manaus,,
-32,30,afae,,-21.989,-47.334,septentrio,sp,"academia das forças aérias, pirassununga",,
-33,22,gw01,,-22.823,-43.238,septentrio,rj,galeão,,
-34,5,pru1,,-22.12,-51.407,septentrio,sp,presidente prudente,,
-35,29,slma,,-2.574,-44.209,septentrio,ma,são luis do maranhão,,
-36,36,lexp,,-22.12,-51.407,septentrio,sp,presidente prudente,,
-37,31,afaw,,-9.87,-56.104,septentrio,mt,alta floresta,,
-38,11,mac2,,-22.823,-43.238,septentrio,rj,macaé,,
-39,12,gale,,-22.823,-43.238,septentrio,rj,galeão,,
-40,8,sjcu,,-23.207,-45.859,septentrio,sp,são josé dos campos (univap),,
-41,24,fort,,-3.742,-38.539,septentrio,ce,fortaleza,,
-42,17,moru,,-22.12,-51.407,septentrio,sp,presidente prudente,,
-43,28,man3,,-3.1,-59.976,septentrio,am,manaus,,
-44,15,man2,,-3.1,-59.976,septentrio,am,manaus,,
-45,16,galh,,-22.823,-43.238,septentrio,rj,galeão,,
-46,25,inco,,-22.318,-46.329,septentrio,mg,inconfidentes,,
-47,18,prut,,-22.12,-51.407,septentrio,sp,presidente prudente,,
-48,3,palm,,-10.2,-48.312,septentrio,ro,palmas,,
-49,6,pru2,,-22.12,-51.407,septentrio,sp,presidente prudente,,
-50,4,poal,,-30.071,-51.119,septentrio,rs,porto alegre,,
-51,33,eear,,-22.789,-45.22,septentrio,sp,guaratinguestá,,
-52,1,maca,,-22.823,-43.238,septentrio,rj,macaé,,
-53,34,gltw,,-22.823,-43.238,septentrio,rj,galeão,,
+,identificationstation,alias,height,latitude,longitude,network,state,city,startoperation,stopoperation,city_heigh,city_latitude,city_longitude
+0,blm,null,0.0,-1.31536,-48.28837,lisn,pa,belem,,,,,
+1,san,null,76.5,-2.43,-54.7,lisn,pa,santarem,,,,,
+2,par,null,11.88,-2.61,-57.733,lisn,am,parintins,,,,,
+3,sjo,null,456.28,-7.38,-36.51,lisn,pb,sao joao do cariri,,,,,
+4,rbr,null,142.951,-9.58,-67.51,lisn,ac,rio branco,,,,,
+5,plm,null,1107.03,-26.512,-51.9857,lisn,pr,palmas,,,,,
+6,9,olmp,,-20.717,-48.91,septentrio,sp,olimpia,,,,,
+7,cpa,null,580.0,-22.41,-45.0,lisn,sp,cachoeira paulista,,,545.0,-22.6737,-44.9973
+8,28,man3,,-3.1,-59.976,septentrio,am,manaus,,,39.0,-3.10719,-60.0261
+9,20,cg01,,-20.497,-54.615,septentrio,ms,campo grande,,,612.0,-20.4435,-54.6478
+10,32,bacg,,-20.497,-54.615,septentrio,ms,campos grande,,,612.0,-20.4435,-54.6478
+11,nta,null,0.0,-5.836162,-35.121,lisn,rn,natal,,,38.0,-5.79448,-35.211
+12,sj2,null,593.44,-23.2076,-45.8598,lisn,sp,sao jose dos campos,,,593.0,-23.1791,-45.8872
+13,12,gale,,-22.823,-43.238,septentrio,rj,rio de janeiro (aeroporto galeão),,,20.0,-22.9035,-43.2096
+14,16,galh,,-22.823,-43.238,septentrio,rj,rio de janeiro (aeroporto galeão),,,20.0,-22.9035,-43.2096
+15,22,gw01,,-22.823,-43.238,septentrio,rj,rio de janeiro (aeroporto galeão),,,20.0,-22.9035,-43.2096
+16,cub,null,278.0,-15.5552,-56.0698,lisn,mt,cuiaba,,,180.0,-15.5989,-56.0949
+17,dou,null,756.12,-22.11,-54.55,lisn,ms,dourados,,,448.0,-22.2218,-54.8064
+18,24,fort,,-3.742,-38.539,septentrio,ce,fortaleza,,,14.0,-3.71839,-38.5434
+19,34,gltw,,-22.823,-43.238,septentrio,rj,rio de janeiro (aeroporto galeão),,,20.0,-22.9035,-43.2096
+20,33,eear,,-22.789,-45.22,septentrio,sp,guaratinguestá,,,526.0,-22.8162,-45.1935
+21,ios,null,0.0,-14.47,-39.1,lisn,ba,ilheus,,,9.0,-14.7973,-39.0355
+22,imp,null,134.72,-5.31,-47.28,lisn,ma,imperatriz,,,137.0,-5.5255,-47.477
+23,25,inco,,-22.318,-46.329,septentrio,mg,inconfidentes,,,864.0,-22.3171,-46.3284
+24,1,maca,,-22.823,-41.7857,septentrio,rj,macaé,,,7.0,-22.3717,-41.7857
+25,11,mac2,,-22.823,-41.7857,septentrio,rj,macaé,,,7.0,-22.3717,-41.7857
+26,3,palm,,-10.2,-48.312,septentrio,ro,palmas,,,260.0,-10.1689,-48.3317
+27,pln,null,434.34,-9.23,-40.3,lisn,pe,petrolina,,,380.0,-9.39416,-40.5096
+28,30,afae,,-21.989,-47.334,septentrio,sp,"academia das forças aérias, pirassununga",,,625.0,-21.996,-47.4268
+29,4,poal,,-30.071,-51.119,septentrio,rs,porto alegre,,,22.0,-30.0277,-51.2287
+30,5,pru1,,-22.12,-51.407,septentrio,sp,presidente prudente,,,471.0,-22.1276,-51.3856
+31,6,pru2,,-22.12,-51.407,septentrio,sp,presidente prudente,,,471.0,-22.1276,-51.3856
+32,17,moru,,-22.12,-51.407,septentrio,sp,presidente prudente,,,471.0,-22.1276,-51.3856
+33,18,prut,,-22.12,-51.407,septentrio,sp,presidente prudente,,,471.0,-22.1276,-51.3856
+34,19,pru3,,-22.12,-51.407,septentrio,sp,presidente prudente,,,471.0,-22.1276,-51.3856
+35,36,lexp,,-22.12,-51.407,septentrio,sp,presidente prudente,,,471.0,-22.1276,-51.3856
+36,8,sjcu,,-23.207,-45.859,septentrio,sp,são josé dos campos (univap),,,593.0,-23.1791,-45.8872
+37,14,sjce,,-23.207,-45.859,septentrio,sp,são josé dos campos(inpe),,,593.0,-23.1791,-45.8872
+38,sl2,null,0.0,-2.59345,-44.2124,lisn,ma,sao luis,,,17.0,-2.53073,-44.3068
+39,29,slma,,-2.574,-44.209,septentrio,ma,são luis do maranhão,,,17.0,-2.53073,-44.3068
+40,afl,null,267.0,-9.9,-55.9,lisn,mt,alta floresta,,,264.0,-9.9,-55.9
+41,31,afaw,,-9.87,-56.104,septentrio,mt,alta floresta,,,264.0,-9.9,-55.9
+42,bhz,null,858.0,-19.8685,-43.9542,lisn,mg,belo horizonte,,,767.0,-19.8157,-43.9542
+43,bov,null,69.18,2.83392,-60.69538,lisn,rr,boa vista,,,76.0,2.81954,-60.6714
+44,37,mac3,,-22.823,-41.7857,septentrio,rj,macaé,,,7.0,-22.3717,-41.7857
+45,mn2,null,46.63,-3.10194,-59.9745,lisn,am,manaus,,,39.0,-3.10719,-60.0261
+46,2,mana,,-3.1,-59.976,septentrio,am,manaus,,,39.0,-3.10719,-60.0261
+47,26,ufba,,-13.001,-38.508,septentrio,ba,salvador,,,12.0,-12.9704,-38.5124
+48,tfe,null,0.057,-3.18,-64.44,lisn,am,tefe,,,28.0,-3.32073,-64.7236
+49,bsa,null,1050.0,-15.7642,-47.8694,lisn,df,brasilia,,,1130.0,-15.7801,-47.9292
+50,pvh,null,1130.0,-8.49,-63.55,lisn,ro,porto velho,,,83.0,-8.76183,-63.902
+51,sta,null,110.1,-29.712591,-53.717206,lisn,rs,santa maria,,,139.0,-29.6914,-53.8008
+52,15,man2,,-3.1,-59.976,septentrio,am,manaus,,,39.0,-3.10719,-60.0261
+53,ppt,null,421.0,-21.12,-51.4085,lisn,sp,presidente prudente,,,471.0,-22.1276,-51.3856
