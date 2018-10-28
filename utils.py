@@ -1,8 +1,10 @@
 import os
+import pdb
 
 import numpy as np
 
 from scipy.signal import convolve, gaussian, savgol_filter
+from sklearn.metrics import mean_squared_error
 
 default_location = "."
 local_tecmap_txt = os.path.join(default_location, 'data/tecmap_txt')
@@ -73,3 +75,32 @@ class Scale(object):
         x = x_array.copy()
         x = (x - self._value_min)/self._desvio
         return x
+
+def total_squared_error(real, predict):
+    value = (real - predict)*(real - predict)
+    value_sum = value.sum()
+    return np.sqrt(value_sum)
+
+def max_error(real, predict):
+    value = np.abs(real - predict)
+    return value.max()
+
+def relative_error(real, predict):
+    value = np.abs(real - predict)
+    value /= np.abs(real)
+    return value.max()*100
+    
+
+def give_error(real, predict, verbose=True):
+    mse = mean_squared_error(real, predict)
+    tse = total_squared_error(real, predict)
+    me = max_error(real, predict)
+    re = relative_error(real, predict)
+    
+    if verbose:
+        print("O erro quadrático médio foi: %f" %mse)
+        print("O erro quadrático total foi: %f" %tse)
+        print("O maior erro por previsão foi: %f" %me)
+        print("O erro relativo foi %f%%" %re)
+    
+    return (mse, tse, me, re)
