@@ -88,7 +88,7 @@ def max_error(real, predict):
 def relative_error(real, predict):
     value = np.abs(real - predict)
     value /= np.abs(real)
-    return value.max()*100
+    return value.mean()*100
     
 
 def give_error(real, predict, verbose=True):
