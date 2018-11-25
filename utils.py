@@ -4,6 +4,7 @@ import sys
 import pdb
 
 import numpy as np
+import pandas as pd
 
 from scipy.signal import convolve, gaussian, savgol_filter
 from sklearn.metrics import mean_squared_error
@@ -266,3 +267,19 @@ def location_station(station):
     long = df_station.loc[df_station['identificationstation'] == station]['longitude'].values[0]
     
     return lat, long
+
+def plot_sunrise_and_sunset(station, df, axes):
+    lat, long = location_station(station)
+    set_of_sunrise = find_set_sunrise(df, lat, long)
+    set_of_sunset = find_set_sunset(df, lat, long)
+    
+    try:
+        _ = iter(axes)
+    except TypeError as te:
+        axes = list[axes]
+    
+    for ax_i in axes:
+        for i in set_of_sunrise:
+            ax_i.axvline(x=i, color='y')
+        for i in set_of_sunset:
+            ax_i.axvline(x=i, color='r')
