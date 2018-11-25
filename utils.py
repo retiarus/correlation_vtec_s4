@@ -232,3 +232,29 @@ def is_dawn_partial(date, lat, long):
         return 1.0
     else:
         return 0.0
+
+def find_set_sunset(df, lat, long):
+    set_of_days = df.resample('D').mean().index.values
+
+    sun = suntime.Sun(lat, long)
+
+    set_of_sunset = []
+    for i in set_of_days:
+        datetime_ref = to_datetime(i).date()
+        ss = sun.get_sunset_time(datetime_ref)
+        set_of_sunset.append(np.datetime64(ss))
+        
+    return set_of_sunset
+
+def find_set_sunrise(df, lat, long):
+    set_of_days = df.resample('D').mean().index.values
+
+    sun = suntime.Sun(lat, long)
+
+    set_of_sunrise = []
+    for i in set_of_days:
+        datetime_ref = to_datetime(i).date()
+        sr = sun.get_sunrise_time(datetime_ref)
+        set_of_sunrise.append(np.datetime64(sr))
+        
+    return set_of_sunrise
