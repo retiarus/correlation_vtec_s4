@@ -276,10 +276,14 @@ def plot_sunrise_and_sunset(station, df, axes):
     try:
         _ = iter(axes)
     except TypeError as te:
-        axes = list[axes]
+        aux = []
+        aux.append(axes)
+        axes = aux
     
     for ax_i in axes:
         for i in set_of_sunrise:
             ax_i.axvline(x=i, color='y')
         for i in set_of_sunset:
             ax_i.axvline(x=i, color='r')
+        
+    
