@@ -1,10 +1,16 @@
 import os
+import sys
 import pdb
 
 import numpy as np
 
 from scipy.signal import convolve, gaussian, savgol_filter
 from sklearn.metrics import mean_squared_error
+
+curr_dir = os.path.abspath(os.path.curdir)
+os.chdir("/home/peregrinus/suntime")
+import suntime.__main__ as suntime
+os.chdir(curr_dir)
 
 default_location = "."
 local_tecmap_txt = os.path.join(default_location, 'data/tecmap_txt')
@@ -89,18 +95,61 @@ def relative_error(real, predict):
     value = np.abs(real - predict)
     value /= np.abs(real)
     return value.mean()*100
-    
 
+def pseudo_confusion_matrix(real, predict):
+    true_negative = 0
+    true_positive = 0
+    false_negative = 0
+    false_positive = 0
+    cut_value = 0.2
+    
+    for r, p in zip(real, predict):
+        if r <= cut_value and p <= cut_value:
+            true_negative += 1
+        elif r > cut_value and p > cut_value:
+            true_positive += 1
+        elif r > cut_value and p <= cut_value:
+            false_negative += 1
+        elif r <= cut_value and p > cut_value:
+            false_positive += 1
+            
+    return (true_negative, true_positive, false_negative, false_positive)
+
+def classification_metrics(true_negative, true_positive, false_negative, false_positive):
+    total = true_negative \
+            + true_positive \
+            + false_negative \
+            + false_positive
+    pod = float(true_positive)/float(true_positive+false_negative)
+    far = float(false_positive)/float(true_positive+false_positive)
+    acc = float(true_negative + true_positive)/total
+    kappa = float(true_negative*false_negative + true_positive*false_positive)/float(total*total)
+    return (pod, far, acc, kappa)
+    
 def give_error(real, predict, verbose=True):
     mse = mean_squared_error(real, predict)
     tse = total_squared_error(real, predict)
     me = max_error(real, predict)
     re = relative_error(real, predict)
+    true_negative, true_positive, false_negative, false_positive = pseudo_confusion_matrix(real, predict)
+    pod, far, acc, kappa = classification_metrics(true_negative,
+                                                  true_positive,
+                                                  false_negative,
+                                                  false_positive)
     
     if verbose:
         print("O erro quadrático médio foi: %f" %mse)
         print("O erro quadrático total foi: %f" %tse)
         print("O maior erro por previsão foi: %f" %me)
-        print("O erro relativo foi %f%%" %re)
+        print("O erro relativo foi: %f%%" %re)
+        print("O número de verdadeiros negativos foi: %i" %true_negative)
+        print("O número de verdadeiros positivos foi: %i" %true_positive)
+        print("O número de falsos negativos foi: %i" %false_negative)
+        print("O número de falsos positivos foi: %i" %false_positive)
+        print("O POD foi: %f" %pod)
+        print("O FAR foi: %f" %far)
+        print("A ACC foi: %f" %acc)
+        print("O kappa foi: %f" %kappa)
     
     return (mse, tse, me, re)
+
