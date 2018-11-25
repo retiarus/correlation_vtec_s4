@@ -1,3 +1,4 @@
+import datetime
 import os
 import sys
 import pdb
@@ -153,3 +154,81 @@ def give_error(real, predict, verbose=True):
     
     return (mse, tse, me, re)
 
+def to_datetime(date):
+    ns = 1e-9
+    date_int = date.astype(int)
+    return datetime.datetime.utcfromtimestamp(date_int * ns)
+    
+def is_post_sunset_partial(date, lat, long):
+    datetime_ref = to_datetime(date)
+    date_date = datetime_ref.date()
+    date_time = datetime_ref.time()
+    
+    sun = suntime.Sun(lat, long)
+    ss = sun.get_sunset_time(date_date)
+    
+    ss_time = ss.time()
+    
+    if date_time >= ss_time:
+        return 1.0
+    else:
+        return 0.0
+    
+def is_post_sunrise_partial(date, lat, long):
+    datetime_ref = to_datetime(date)
+    date_date = datetime_ref.date()
+    date_time = datetime_ref.time()
+    
+    sun = suntime.Sun(lat, long)
+    sr = sun.get_sunrise_time(date_date)
+    
+    sr_time = sr.time()
+    
+    if date_time >= sr_time:
+        return 1.0
+    else:
+        return 0.0
+    
+def is_day_partial(date, lat, long):
+    datetime_ref = to_datetime(date)
+    date_date = datetime_ref.date()
+    date_time = datetime_ref.time()
+    
+    sun = suntime.Sun(lat, long)
+    sr = sun.get_sunrise_time(date_date)
+    ss = sun.get_sunset_time(date_date)
+    sr_time = sr.time()
+    ss_time = ss.time()
+    
+    if sr_time <= date_time < ss_time:
+        return 1.0
+    else:
+        return 0.0
+    
+def is_night_partial(date, lat, long):
+    datetime_ref = to_datetime(date)
+    date_date = datetime_ref.date()
+    date_time = datetime_ref.time()
+    
+    sun = suntime.Sun(lat, long)
+    ss = sun.get_sunset_time(date_date)
+    ss_time = ss.time()
+    
+    if ss_time <= date_time <= datetime.time(23, 59, 59):
+        return 1.0
+    else:
+        return 0.0
+    
+def is_dawn_partial(date, lat, long):
+    datetime_ref = to_datetime(date)
+    date_date = datetime_ref.date()
+    date_time = datetime_ref.time()
+    
+    sun = suntime.Sun(lat, long)
+    sr = sun.get_sunrise_time(date_date)
+    sr_time = sr.time()
+    
+    if datetime.time(0, 0) <= date_time < sr_time:
+        return 1.0
+    else:
+        return 0.0
