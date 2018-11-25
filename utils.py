@@ -258,3 +258,11 @@ def find_set_sunrise(df, lat, long):
         set_of_sunrise.append(np.datetime64(sr))
         
     return set_of_sunrise
+
+def location_station(station):
+    df_station = pd.read_pickle('./data/df_station_sort_re.pkl')
+    
+    lat = df_station.loc[df_station['identificationstation'] == station]['latitude'].values[0]
+    long = df_station.loc[df_station['identificationstation'] == station]['longitude'].values[0]
+    
+    return lat, long
