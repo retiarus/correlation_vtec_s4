@@ -98,7 +98,7 @@ def relative_error(real, predict):
     value /= np.abs(real)
     return value.mean()*100
 
-def pseudo_confusion_matrix(real, predict):
+def pseudo_confusion_matrix(real, predict, cut_value=0.2):
     true_negative = 0
     true_positive = 0
     false_negative = 0
@@ -128,12 +128,12 @@ def classification_metrics(true_negative, true_positive, false_negative, false_p
     kappa = float(true_negative*false_negative + true_positive*false_positive)/float(total*total)
     return (pod, far, acc, kappa)
     
-def give_error(real, predict, verbose=True):
+def give_error(real, predict, verbose=True, cut_value=0.2):
     mse = mean_squared_error(real, predict)
     tse = total_squared_error(real, predict)
     me = max_error(real, predict)
     re = relative_error(real, predict)
-    true_negative, true_positive, false_negative, false_positive = pseudo_confusion_matrix(real, predict)
+    true_negative, true_positive, false_negative, false_positive = pseudo_confusion_matrix(real, predict, 0.2)
     pod, far, acc, kappa = classification_metrics(true_negative,
                                                   true_positive,
                                                   false_negative,
