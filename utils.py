@@ -3,11 +3,17 @@ import os
 import sys
 import pdb
 
+import cartopy.crs as ccrs
 import numpy as np
 import pandas as pd
+import matplotlib.pyplot as plt
+import matplotlib.ticker as mticker
 
 from scipy.signal import convolve, gaussian, savgol_filter
 from sklearn.metrics import mean_squared_error
+
+from cartopy.feature import NaturalEarthFeature, BORDERS, LAND, COASTLINE, COLORS
+from cartopy.mpl.gridliner import LONGITUDE_FORMATTER, LATITUDE_FORMATTER
 
 curr_dir = os.path.abspath(os.path.curdir)
 os.chdir("/home/peregrinus/suntime")
@@ -286,4 +292,63 @@ def plot_sunrise_and_sunset(station, df, axes):
         for i in set_of_sunset:
             ax_i.axvline(x=i, color='r')
         
-    
+def prepare_map(figsize=(12,12)):
+    linestyles = dict([('solid',               (0, ())),
+                       ('loosely dotted',      (0, (1, 10))),
+                       ('dotted',              (0, (1, 5))),
+                       ('densely dotted',      (0, (1, 1))),
+                       ('loosely dashed',      (0, (5, 10))),
+                       ('dashed',              (0, (5, 5))),
+                       ('densely dashed',      (0, (5, 1))),
+                       ('loosely dashdotted',  (0, (3, 10, 1, 10))),
+                       ('dashdotted',          (0, (3, 5, 1, 5))),
+                       ('densely dashdotted',  (0, (3, 1, 1, 1))),
+                       ('loosely dashdotdotted', (0, (3, 10, 1, 10, 1, 10))),
+                       ('dashdotdotted',         (0, (3, 5, 1, 5, 1, 5))),
+                       ('densely dashdotdotted', (0, (3, 1, 1, 1, 1, 1)))])
+
+    fig = plt.figure(figsize=figsize)
+    ax = fig.add_subplot(1, 1, 1, projection=ccrs.PlateCarree())
+    ax.set_extent([-90, -25, -50, 20])
+
+    land = NaturalEarthFeature(category='physical',
+                               name='land',
+                               scale='50m',
+                               facecolor='white')
+    ax.add_feature(land,
+                   edgecolor='black')
+
+    states = NaturalEarthFeature(category='cultural',
+                                 scale='50m',
+                                 facecolor='none',
+                                 name='admin_1_states_provinces_shp')
+    ax.add_feature(states,
+                   edgecolor='lightgray',
+                   linestyle='-',
+                   linewidth=1)
+
+    countries = NaturalEarthFeature(scale='50m',
+                                    category='cultural',
+                                    facecolor='none',
+                                    name='admin_0_countries',
+                                    alpha=1)
+    ax.add_feature(countries,
+                   edgecolor='gray',
+                   linestyle='-',
+                   linewidth=1)
+
+    gl = ax.gridlines(draw_labels=True,
+                      linewidth=1,
+                      color='blue',
+                      alpha=0.2,
+                      linestyle=linestyles['solid'])
+
+    gl.xlabels_top = False
+    gl.ylabels_right = False
+    gl.xformatter = LONGITUDE_FORMATTER
+    gl.yformatter = LATITUDE_FORMATTER
+    gl.xlocator = mticker.MaxNLocator(nbins=19, steps=[1, 2, 5, 10])
+    gl.ylocator = mticker.MaxNLocator(nbins=19, steps=[1, 2, 5, 10])
+
+    return fig, ax
+  
