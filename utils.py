@@ -1,3 +1,4 @@
+import copy
 import datetime
 import os
 import sys
@@ -352,3 +353,49 @@ def prepare_map(figsize=(12,12)):
 
     return fig, ax
   
+def generate_vm_vd(df, deltatime):
+    size = len(df)
+    vm = np.empty(size)
+    vd = np.empty(size)
+    vm[:] = np.nan
+    vd[:] = np.nan
+    se_vm = pd.Series(vm, index=df.index.values)
+    se_vd = pd.Series(vd, index=df.index.values)
+
+    day_begin = df[(df.state_day == 1.0) & (df.state_day_shift == 0.0)].index.values
+    day_end = df[(df.state_day == 0.0) & (df.state_day_shift == 1.0)].index.values
+
+    if day_begin[0] > day_end[0]:
+        day_end = day_end[1:]
+    if len(day_begin) > len(day_end):
+        day_begin = day_begin[0:-1]
+
+    # o preíodo de amostragem começa no final do dia
+    # e se extende até uma hora após o por do sol
+    day_begin = copy.deepcopy(day_end)
+    day_end += deltatime
+
+    # remove o intervalo final, se o extremo a direita dat_end[]
+    # cair pra fora da série
+    if day_end[-1] not in df.index.values:
+        day_end = day_end[0:-1]
+        day_begin = day_begin[0:-1]
+
+    # combina os pares e cálcula o valor médio ao longo do intervalo
+    for day_begin_i, day_end_i in zip(day_begin, day_end):
+        se_vm[day_begin_i] = df[day_begin_i:day_end_i]['vtec'].mean()
+        se_vd[day_begin_i] = df[day_begin_i:day_end_i]['vtec'].std()
+
+    before_dif_nonnan_vm = np.nan
+    before_dif_nonnan_vd = np.nan
+    for idx_vm, value_vm, idx_vd, value_vd in zip(se_vm.index, se_vm, se_vd.index, se_vd):
+        if not np.isnan(value_vm) and (value_vm != before_dif_nonnan_vm):
+            before_dif_nonnan_vm = value_vm
+        if np.isnan(value_vm):
+            se_vm[idx_vm] = before_dif_nonnan_vm
+        if not np.isnan(value_vd) and (value_vd != before_dif_nonnan_vd):
+            before_dif_nonnan_vd = value_vd
+        if np.isnan(value_vd):
+            se_vd[idx_vd] = before_dif_nonnan_vd
+
+    return se_vm, se_vd
