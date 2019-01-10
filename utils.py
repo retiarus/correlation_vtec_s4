@@ -12,6 +12,14 @@ import matplotlib.ticker as mticker
 
 from scipy.signal import convolve, gaussian, savgol_filter
 from sklearn.metrics import mean_squared_error
+from sklearn.pipeline import Pipeline
+
+from sklearn.model_selection import train_test_split
+from sklearn.model_selection import cross_val_score
+from sklearn.model_selection import GridSearchCV
+from sklearn.ensemble import RandomForestRegressor
+from sklearn.metrics import mean_squared_error
+from sklearn.preprocessing import StandardScaler
 
 from cartopy.feature import NaturalEarthFeature, BORDERS, LAND, COASTLINE, COLORS
 from cartopy.mpl.gridliner import LONGITUDE_FORMATTER, LATITUDE_FORMATTER
@@ -315,7 +323,7 @@ def prepare_map(figsize=(12,12)):
     land = NaturalEarthFeature(category='physical',
                                name='land',
                                scale='50m',
-                               facecolor='white')
+                               facecolor='none')
     ax.add_feature(land,
                    edgecolor='black')
 
@@ -399,3 +407,111 @@ def generate_vm_vd(df, deltatime):
             se_vd[idx_vd] = before_dif_nonnan_vd
 
     return se_vm, se_vd
+
+def generate_and_avaliate_model(df, 
+                                instances_set, 
+                                target, 
+                                file_to_save_model=None, 
+                                model=None, 
+                                save=None,
+                                param_grid=None,
+                                random_state=42,
+                                simple=False):
+    if model is None:
+        # generate default model RandomForest, when model is not defined
+        model = RandomForestRegressor
+        
+        # define parameters for grid_search
+        # n_estimators = [int(x) for x in np.linspace(start=200, stop=2000, num=10)]
+        # max_features = ['auto', 'sqrt']
+        # max_depth = [int(x) for x in np.linspace(10, 180, num=11)]
+        # max_depth.append(None)
+        # min_samples_split = [2, 5, 10]
+        # min_samples_leaf = [1, 2, 4]
+        # bootstrap = [True, False]
+
+        n_estimators = [int(x) for x in np.linspace(start=200, stop=2000, num=1)]
+        max_features = ['auto', 'sqrt']
+        max_depth = [int(x) for x in np.linspace(10, 180, num=1)]
+        max_depth.append(None)
+        min_samples_split = [2, 10]
+        min_samples_leaf = [1, 4]
+        bootstrap = [True]
+        
+        if simple:
+            param_grid = {'n_estimators': n_estimators,
+                          'max_features': max_features,
+                          'max_depth': max_depth,
+                          'min_samples_split': min_samples_split,
+                          'min_samples_leaf': min_samples_leaf,
+                          'bootstrap': bootstrap}
+    
+    # select data
+    X = df[instances_set].values
+    y = df['s4'].values
+    
+    size = len(X)
+    last_element = size - size//10
+    
+    X_train = X[0:last_element]
+    y_train = y[0:last_element] 
+       
+    estimators = []
+    estimators.append(('standardize', StandardScaler()))
+    estimators.append(('model', model()))
+    pipeline = Pipeline(estimators)
+    
+    if param_grid is not None:
+        clf = GridSearchCV(estimator=pipeline,
+                           param_grid=param_grid,
+                           cv=10,
+                           verbose=2,
+                           n_jobs=-1,
+                           scoring='neg_mean_squared_error')
+        
+        clf.fit(X_train, y_train)
+        
+        print(clf.grid_scores_[0].parameters)
+    
+    # generate standardize transformation for (x,y)
+    X_scaler = StandardScaler() # transformation for X
+    X_scaler.fit(X_train)
+    X_train = X_scaler.transform(X_train)
+
+    # generate final model
+    if True:
+        mod = model()
+    else:
+        pass
+    
+    mod.fit(X_train, y_train)
+    
+    # use the final model to avaliate the error in a sample of the time series
+    X_validate = X_scaler.transform(X[last_element:size+1])
+    y_validate = y[last_element:size+1]
+    
+    index = df.index.values[last_element:size+1]
+    df_aux = pd.DataFrame(index=index)
+    df_aux['predito'] = mod.predict(X_validate)
+    df_aux['real'] = y_validate
+
+    print('Error for the time series sample:')
+    give_error(df_aux['real'].values, df_aux['predito'].values);
+
+    # plot the time series predict against the real values
+    ax = df_aux.plot(figsize=(18, 8));
+    plt.xlabel('UT')
+
+    lat, long = location_station('sj2')
+    set_of_sunrise = find_set_sunrise(df_aux, lat, long)
+    set_of_sunset = find_set_sunset(df_aux, lat, long)
+    for i in set_of_sunrise:
+        ax.axvline(x=i, color='y')
+    for i in set_of_sunset[0:-1]:
+        ax.axvline(x=i, color='r')
+
+    plt.tight_layout()
+    if save:
+        plt.savefig(file_to_save_model, format='eps', dpi=1000)
+    else:
+        plt.show()
