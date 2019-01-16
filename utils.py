@@ -141,7 +141,10 @@ def classification_metrics(true_negative, true_positive, false_negative, false_p
     far = float(false_positive)/float(true_positive+false_positive)
     acc = float(true_negative + true_positive)/total
     kappa = float(true_negative*false_negative + true_positive*false_positive)/float(total*total)
-    return (pod, far, acc, kappa)
+    precission = float(true_positive)/float(true_positive+false_positive)
+    recall = float(true_positive)/float(true_positive+false_negative)
+    f1 = 2*precission*recall/(precission+recall)
+    return (pod, far, acc, kappa, precission, recall, f1)
     
 def give_error(real, predict, verbose=True, cut_value=0.2):
     mse = mean_squared_error(real, predict)
@@ -149,10 +152,10 @@ def give_error(real, predict, verbose=True, cut_value=0.2):
     me = max_error(real, predict)
     re = relative_error(real, predict)
     true_negative, true_positive, false_negative, false_positive = pseudo_confusion_matrix(real, predict, 0.2)
-    pod, far, acc, kappa = classification_metrics(true_negative,
-                                                  true_positive,
-                                                  false_negative,
-                                                  false_positive)
+    pod, far, acc, kappa, precission, recall, f1 = classification_metrics(true_negative,
+                                                                         true_positive,
+                                                                         false_negative,
+                                                                         false_positive)
     
     if verbose:
         print("O erro quadrático médio foi: %f" %mse)
@@ -167,8 +170,27 @@ def give_error(real, predict, verbose=True, cut_value=0.2):
         print("O FAR foi: %f" %far)
         print("A ACC foi: %f" %acc)
         print("O kappa foi: %f" %kappa)
+        print("precission: %f" %precission)
+        print("recal: %f" % recall)
+        print("f1: %f" % f1)
+        
+    dict_error = {'mse': mse,
+                  'tse': tse,
+                  'me': me,
+                  're': re,
+                  'tn': true_negative,
+                  'tp': true_positive,
+                  'fn': false_negative,
+                  'fp': false_positive,
+                  'pod': pod,
+                  'far' : far,
+                  'acc': acc,
+                  'kappa': kappa,
+                  'precission': precission,
+                  'recall': recall,
+                  'f1': f1}
     
-    return (mse, tse, me, re)
+    return dict_error
 
 def to_datetime(date):
     ns = 1e-9
@@ -496,7 +518,7 @@ def generate_and_avaliate_model(df,
     df_aux['real'] = y_validate
 
     print('Error for the time series sample:')
-    give_error(df_aux['real'].values, df_aux['predito'].values);
+    dict_error = give_error(df_aux['real'].values, df_aux['predito'].values);
 
     # plot the time series predict against the real values
     ax = df_aux.plot(figsize=(18, 8));
@@ -515,3 +537,5 @@ def generate_and_avaliate_model(df,
         plt.savefig(file_to_save_model, format='eps', dpi=1000)
     else:
         plt.show()
+        
+    return dict_error
