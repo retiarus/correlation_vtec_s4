@@ -10,6 +10,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.ticker as mticker
 
+from sympy import FiniteSet
+
 from scipy.signal import convolve, gaussian, savgol_filter
 from sklearn.metrics import mean_squared_error
 from sklearn.pipeline import Pipeline
@@ -539,3 +541,23 @@ def generate_and_avaliate_model(df,
         plt.show()
         
     return dict_error
+
+class MySet():
+    def __init__(self, name, list_of_elements):
+        self.set = set(list_of_elements)
+        self.name = name
+            
+    def __add__(self, other_set):
+        aux = copy.deepcopy(self)
+        aux.set = aux.set.union(other_set.set)
+        aux.name = aux.name + ' + ' + other_set.name
+        return aux
+    
+    def __sub__(self, other_set):
+        aux = copy.deepcopy(self)
+        aux.set = aux.set.difference(other_set.set)
+        aux.name = aux.name + ' - ' + other_set.name
+        return aux
+    
+    def __str__(self):
+        return self.name
