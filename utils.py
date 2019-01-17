@@ -440,7 +440,8 @@ def generate_and_avaliate_model(df,
                                 save=None,
                                 param_grid=None,
                                 random_state=42,
-                                simple=False):
+                                simple=False,
+                                cut_value=0.2):
     if model is None:
         # generate default model RandomForest, when model is not defined
         model = RandomForestRegressor
@@ -520,7 +521,7 @@ def generate_and_avaliate_model(df,
     df_aux['real'] = y_validate
 
     print('Error for the time series sample:')
-    dict_error = give_error(df_aux['real'].values, df_aux['predito'].values);
+    dict_error = give_error(df_aux['real'].values, df_aux['predito'].values, cut_value=cut_value);
 
     # plot the time series predict against the real values
     ax = df_aux.plot(figsize=(18, 8));
@@ -537,8 +538,9 @@ def generate_and_avaliate_model(df,
     plt.tight_layout()
     if save:
         plt.savefig(file_to_save_model, format='eps', dpi=1000)
-    else:
-        plt.show()
+ 
+    plt.show()
+
         
     return dict_error
 
