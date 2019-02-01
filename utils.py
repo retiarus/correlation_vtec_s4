@@ -438,6 +438,7 @@ def generate_and_avaliate_model(df,
                                 file_to_save_model=None, 
                                 model=None, 
                                 save=None,
+                                grid_search=False,
                                 param_grid=None,
                                 random_state=42,
                                 simple=False,
@@ -455,22 +456,19 @@ def generate_and_avaliate_model(df,
         # min_samples_leaf = [1, 2, 4]
         # bootstrap = [True, False]
 
-        n_estimators = [int(x) for x in np.linspace(start=200, stop=2000, num=1)]
-        max_features = ['auto', 'sqrt']
-        max_depth = [int(x) for x in np.linspace(10, 180, num=1)]
-        max_depth.append(None)
-        min_samples_split = [2, 10]
-        min_samples_leaf = [1, 4]
-        bootstrap = [True]
+        n_estimators = [int(x) for x in np.linspace(start=500, stop=1000, num=10)]
+        max_depth = [int(x) for x in np.linspace(10, 100, num=11)]
         
-        if simple:
-            param_grid = {'n_estimators': n_estimators,
-                          'max_features': max_features,
-                          'max_depth': max_depth,
-                          'min_samples_split': min_samples_split,
-                          'min_samples_leaf': min_samples_leaf,
-                          'bootstrap': bootstrap}
-    
+        if grid_search:
+           # param_grid = {'model__n_estimators': n_estimators,
+           #               'model__max_features': max_features,
+           #               'model__max_depth': max_depth,
+           #               'model__min_samples_split': min_samples_split,
+           #               'model__min_samples_leaf': min_samples_leaf,
+           #               'model__bootstrap': bootstrap}
+           #  
+            param_grid = {'model__n_estimators': n_estimators,
+                          'model__max_depth': max_depth} 
     # select data
     X = df[instances_set].values
     y = df['s4'].values
@@ -493,10 +491,10 @@ def generate_and_avaliate_model(df,
                            verbose=2,
                            n_jobs=-1,
                            scoring='neg_mean_squared_error')
-        
+      
         clf.fit(X_train, y_train)
-        
-        print(clf.grid_scores_[0].parameters)
+        best_parameters_estimator = clf.best_estimator_.get_params()
+        best_parameters_model = best_parameters['model'].get_params()
     
     # generate standardize transformation for (x,y)
     X_scaler = StandardScaler() # transformation for X
@@ -505,7 +503,7 @@ def generate_and_avaliate_model(df,
 
     # generate final model
     if True:
-        mod = model()
+        mod = model(**best_parameters_model)
     else:
         pass
     
