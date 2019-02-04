@@ -16,6 +16,7 @@ from scipy.signal import convolve, gaussian, savgol_filter
 from sklearn.metrics import mean_squared_error
 from sklearn.pipeline import Pipeline
 
+from sklearn.model_selection import KFold
 from sklearn.model_selection import train_test_split
 from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import GridSearchCV
@@ -74,13 +75,14 @@ def first_order_derivative_time(data):
         
     return result
 
-def smooth_signal(sig):
+def smooth_signal(sig, savitz=True):
     window_gaussian = gaussian(window, std=1)
     window_gaussian = window_gaussian/window_gaussian.sum()
     par = window//2
     
     # aplication of the filters
-    sig = savgol_filter(sig, window, 3)
+    if savitz:
+        sig = savgol_filter(sig, window, 3)
     sig = convolve(sig, window_gaussian, mode='same')
     
     for i in range(0, par):
@@ -448,27 +450,22 @@ def generate_and_avaliate_model(df,
         model = RandomForestRegressor
         
         # define parameters for grid_search
-        # n_estimators = [int(x) for x in np.linspace(start=200, stop=2000, num=10)]
-        # max_features = ['auto', 'sqrt']
-        # max_depth = [int(x) for x in np.linspace(10, 180, num=11)]
-        # max_depth.append(None)
-        # min_samples_split = [2, 5, 10]
-        # min_samples_leaf = [1, 2, 4]
-        # bootstrap = [True, False]
+        n_estimators = [int(x) for x in np.linspace(start=200, stop=2000, num=10)]
+        max_features = ['auto', 'sqrt']
+        max_depth = [int(x) for x in np.linspace(10, 180, num=11)]
+        max_depth.append(None)
+        min_samples_split = [2, 5, 10]
+        min_samples_leaf = [1, 2, 4]
+        bootstrap = [True, False]
 
-        n_estimators = [int(x) for x in np.linspace(start=500, stop=1000, num=10)]
-        max_depth = [int(x) for x in np.linspace(10, 100, num=11)]
-        
         if grid_search:
-           # param_grid = {'model__n_estimators': n_estimators,
-           #               'model__max_features': max_features,
-           #               'model__max_depth': max_depth,
-           #               'model__min_samples_split': min_samples_split,
-           #               'model__min_samples_leaf': min_samples_leaf,
-           #               'model__bootstrap': bootstrap}
-           #  
             param_grid = {'model__n_estimators': n_estimators,
-                          'model__max_depth': max_depth} 
+                          'model__max_features': max_features,
+                          'model__max_depth': max_depth,
+                          'model__min_samples_split': min_samples_split,
+                          'model__min_samples_leaf': min_samples_leaf,
+                          'model__bootstrap': bootstrap}
+             
     # select data
     X = df[instances_set].values
     y = df['s4'].values
@@ -477,7 +474,12 @@ def generate_and_avaliate_model(df,
     last_element = size - size//10
     
     X_train = X[0:last_element]
-    y_train = y[0:last_element] 
+    y_train = y[0:last_element]
+    
+    # suffle the train data
+    order = np.random.permutation(len(X_train))
+    X_train = np.array([X_train[i] for i in order])
+    y_train = np.array([y_train[i] for i in order])
        
     estimators = []
     estimators.append(('standardize', StandardScaler()))
@@ -496,30 +498,42 @@ def generate_and_avaliate_model(df,
         best_parameters_estimator = clf.best_estimator_.get_params()
         best_parameters_model = best_parameters['model'].get_params()
     
-    # generate standardize transformation for (x,y)
-    X_scaler = StandardScaler() # transformation for X
-    X_scaler.fit(X_train)
-    X_train = X_scaler.transform(X_train)
-
     # generate final model
-    if True:
+    if param_grid is not None:
         mod = model(**best_parameters_model)
     else:
-        pass
+        mod = model()
     
-    mod.fit(X_train, y_train)
+    # implement Kfold cross validation
+    kf = KFold(n_splits=10, shuffle=True)
+    errors = []
+    for train_index, test_index in kf.split(X_train, y_train):
+        # generate standardize transformation for (x,y)
+        X_scaler = StandardScaler() # transformation for X
+        X_scaler.fit(X_train[train_index])
+        
+        mod.fit(X_scaler.transform(X_train[train_index]),
+                y_train[train_index])
     
-    # use the final model to avaliate the error in a sample of the time series
-    X_validate = X_scaler.transform(X[last_element:size+1])
-    y_validate = y[last_element:size+1]
+        # use the final model to avaliate the error in a sample of the time series
+        X_validate = X_scaler.transform(X[last_element:size+1])
+        y_validate = y[last_element:size+1]
     
-    index = df.index.values[last_element:size+1]
-    df_aux = pd.DataFrame(index=index)
-    df_aux['predito'] = mod.predict(X_validate)
-    df_aux['real'] = y_validate
+        index = df.index.values[last_element:size+1]
+        df_aux = pd.DataFrame(index=index)
+        df_aux['predito'] = mod.predict(X_validate)
+        df_aux['real'] = y_validate
 
+        dict_error = give_error(df_aux['real'].values,
+                                df_aux['predito'].values,
+                                cut_value=cut_value, 
+                                verbose=False);
+        
+        errors.append(dict_error)
+        
     print('Error for the time series sample:')
-    dict_error = give_error(df_aux['real'].values, df_aux['predito'].values, cut_value=cut_value);
+    df_errors = pd.DataFrame(errors)
+    print(df_errors.mean())
 
     # plot the time series predict against the real values
     ax = df_aux.plot(figsize=(18, 8));
@@ -538,9 +552,8 @@ def generate_and_avaliate_model(df,
         plt.savefig(file_to_save_model, format='eps', dpi=1000)
  
     plt.show()
-
-        
-    return dict_error
+    
+    return df_errors.mean().to_dict()
 
 class MySet():
     def __init__(self, name, list_of_elements):

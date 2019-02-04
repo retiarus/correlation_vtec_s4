@@ -1,0 +1,92 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.9~svn20110310	//
+MySet	.ipynb_checkpoints/utils-checkpoint.py	/^class MySet():$/;"	c
+MySet	utils.py	/^class MySet():$/;"	c
+Scale	.ipynb_checkpoints/utils-checkpoint.py	/^class Scale(object):$/;"	c
+Scale	utils.py	/^class Scale(object):$/;"	c
+__add__	.ipynb_checkpoints/utils-checkpoint.py	/^    def __add__(self, other_set):$/;"	m	class:MySet	file:
+__add__	utils.py	/^    def __add__(self, other_set):$/;"	m	class:MySet	file:
+__call__	.ipynb_checkpoints/utils-checkpoint.py	/^    def __call__(self, x_array):$/;"	m	class:Scale	file:
+__call__	utils.py	/^    def __call__(self, x_array):$/;"	m	class:Scale	file:
+__init__	.ipynb_checkpoints/utils-checkpoint.py	/^    def __init__(self, name, list_of_elements):$/;"	m	class:MySet
+__init__	.ipynb_checkpoints/utils-checkpoint.py	/^    def __init__(self, value_min, value_max):$/;"	m	class:Scale
+__init__	utils.py	/^    def __init__(self, name, list_of_elements):$/;"	m	class:MySet
+__init__	utils.py	/^    def __init__(self, value_min, value_max):$/;"	m	class:Scale
+__str__	.ipynb_checkpoints/utils-checkpoint.py	/^    def __str__(self):$/;"	m	class:MySet	file:
+__str__	utils.py	/^    def __str__(self):$/;"	m	class:MySet	file:
+__sub__	.ipynb_checkpoints/utils-checkpoint.py	/^    def __sub__(self, other_set):$/;"	m	class:MySet	file:
+__sub__	utils.py	/^    def __sub__(self, other_set):$/;"	m	class:MySet	file:
+classification_metrics	.ipynb_checkpoints/utils-checkpoint.py	/^def classification_metrics(true_negative, true_positive, false_negative, false_positive):$/;"	f
+classification_metrics	utils.py	/^def classification_metrics(true_negative, true_positive, false_negative, false_positive):$/;"	f
+curr_dir	.ipynb_checkpoints/utils-checkpoint.py	/^curr_dir = os.path.abspath(os.path.curdir)$/;"	v
+curr_dir	utils.py	/^curr_dir = os.path.abspath(os.path.curdir)$/;"	v
+default_location	.ipynb_checkpoints/utils-checkpoint.py	/^default_location = "."$/;"	v
+default_location	utils.py	/^default_location = "."$/;"	v
+extract_index	.ipynb_checkpoints/utils-checkpoint.py	/^def extract_index(series):$/;"	f
+extract_index	utils.py	/^def extract_index(series):$/;"	f
+extract_vtec	.ipynb_checkpoints/utils-checkpoint.py	/^def extract_vtec(series):$/;"	f
+extract_vtec	utils.py	/^def extract_vtec(series):$/;"	f
+find_set_sunrise	.ipynb_checkpoints/utils-checkpoint.py	/^def find_set_sunrise(df, lat, long):$/;"	f
+find_set_sunrise	utils.py	/^def find_set_sunrise(df, lat, long):$/;"	f
+find_set_sunset	.ipynb_checkpoints/utils-checkpoint.py	/^def find_set_sunset(df, lat, long):$/;"	f
+find_set_sunset	utils.py	/^def find_set_sunset(df, lat, long):$/;"	f
+first_order_derivative_time	.ipynb_checkpoints/utils-checkpoint.py	/^def first_order_derivative_time(data):$/;"	f
+first_order_derivative_time	utils.py	/^def first_order_derivative_time(data):$/;"	f
+generate_and_avaliate_model	.ipynb_checkpoints/utils-checkpoint.py	/^def generate_and_avaliate_model(df, $/;"	f
+generate_and_avaliate_model	utils.py	/^def generate_and_avaliate_model(df, $/;"	f
+generate_vm_vd	.ipynb_checkpoints/utils-checkpoint.py	/^def generate_vm_vd(df, deltatime):$/;"	f
+generate_vm_vd	utils.py	/^def generate_vm_vd(df, deltatime):$/;"	f
+give_error	.ipynb_checkpoints/utils-checkpoint.py	/^def give_error(real, predict, verbose=True, cut_value=0.2):$/;"	f
+give_error	utils.py	/^def give_error(real, predict, verbose=True, cut_value=0.2):$/;"	f
+group_1	.ipynb_checkpoints/utils-checkpoint.py	/^group_1 = ['bhz', '30', '25', 'sj2']$/;"	v
+group_1	utils.py	/^group_1 = ['bhz', '30', '25', 'sj2']$/;"	v
+i_longitude	.ipynb_checkpoints/utils-checkpoint.py	/^def i_longitude(value):$/;"	f
+i_longitude	utils.py	/^def i_longitude(value):$/;"	f
+ij_par	.ipynb_checkpoints/utils-checkpoint.py	/^def ij_par(value_i, value_j):$/;"	f
+ij_par	utils.py	/^def ij_par(value_i, value_j):$/;"	f
+is_dawn_partial	.ipynb_checkpoints/utils-checkpoint.py	/^def is_dawn_partial(date, lat, long):$/;"	f
+is_dawn_partial	utils.py	/^def is_dawn_partial(date, lat, long):$/;"	f
+is_day_partial	.ipynb_checkpoints/utils-checkpoint.py	/^def is_day_partial(date, lat, long):$/;"	f
+is_day_partial	utils.py	/^def is_day_partial(date, lat, long):$/;"	f
+is_night_partial	.ipynb_checkpoints/utils-checkpoint.py	/^def is_night_partial(date, lat, long):$/;"	f
+is_night_partial	utils.py	/^def is_night_partial(date, lat, long):$/;"	f
+is_post_sunrise_partial	.ipynb_checkpoints/utils-checkpoint.py	/^def is_post_sunrise_partial(date, lat, long):$/;"	f
+is_post_sunrise_partial	utils.py	/^def is_post_sunrise_partial(date, lat, long):$/;"	f
+is_post_sunset_partial	.ipynb_checkpoints/utils-checkpoint.py	/^def is_post_sunset_partial(date, lat, long):$/;"	f
+is_post_sunset_partial	utils.py	/^def is_post_sunset_partial(date, lat, long):$/;"	f
+j_latitude	.ipynb_checkpoints/utils-checkpoint.py	/^def j_latitude(value):$/;"	f
+j_latitude	utils.py	/^def j_latitude(value):$/;"	f
+local_data	.ipynb_checkpoints/utils-checkpoint.py	/^local_data = os.path.join(default_location, 'data')$/;"	v
+local_data	utils.py	/^local_data = os.path.join(default_location, 'data')$/;"	v
+local_s4	.ipynb_checkpoints/utils-checkpoint.py	/^local_s4 = os.path.join(default_location, 'data_s4')$/;"	v
+local_s4	utils.py	/^local_s4 = os.path.join(default_location, 'data_s4')$/;"	v
+local_s4_pre	.ipynb_checkpoints/utils-checkpoint.py	/^local_s4_pre = os.path.join(default_location, 'data_s4_pre')$/;"	v
+local_s4_pre	utils.py	/^local_s4_pre = os.path.join(default_location, 'data_s4_pre')$/;"	v
+local_tecmap_txt	.ipynb_checkpoints/utils-checkpoint.py	/^local_tecmap_txt = os.path.join(default_location, 'data\/tecmap_txt')$/;"	v
+local_tecmap_txt	utils.py	/^local_tecmap_txt = os.path.join(default_location, 'data\/tecmap_txt')$/;"	v
+location_station	.ipynb_checkpoints/utils-checkpoint.py	/^def location_station(station):$/;"	f
+location_station	utils.py	/^def location_station(station):$/;"	f
+max_error	.ipynb_checkpoints/utils-checkpoint.py	/^def max_error(real, predict):$/;"	f
+max_error	utils.py	/^def max_error(real, predict):$/;"	f
+plot_sunrise_and_sunset	.ipynb_checkpoints/utils-checkpoint.py	/^def plot_sunrise_and_sunset(station, df, axes):$/;"	f
+plot_sunrise_and_sunset	utils.py	/^def plot_sunrise_and_sunset(station, df, axes):$/;"	f
+prepare_map	.ipynb_checkpoints/utils-checkpoint.py	/^def prepare_map(figsize=(12,12)):$/;"	f
+prepare_map	utils.py	/^def prepare_map(figsize=(12,12)):$/;"	f
+pseudo_confusion_matrix	.ipynb_checkpoints/utils-checkpoint.py	/^def pseudo_confusion_matrix(real, predict, cut_value=0.2):$/;"	f
+pseudo_confusion_matrix	utils.py	/^def pseudo_confusion_matrix(real, predict, cut_value=0.2):$/;"	f
+relative_error	.ipynb_checkpoints/utils-checkpoint.py	/^def relative_error(real, predict):$/;"	f
+relative_error	utils.py	/^def relative_error(real, predict):$/;"	f
+second_order_derivative_time	.ipynb_checkpoints/utils-checkpoint.py	/^def second_order_derivative_time(data):$/;"	f
+second_order_derivative_time	utils.py	/^def second_order_derivative_time(data):$/;"	f
+smooth_signal	.ipynb_checkpoints/utils-checkpoint.py	/^def smooth_signal(sig):$/;"	f
+smooth_signal	utils.py	/^def smooth_signal(sig):$/;"	f
+to_datetime	.ipynb_checkpoints/utils-checkpoint.py	/^def to_datetime(date):$/;"	f
+to_datetime	utils.py	/^def to_datetime(date):$/;"	f
+total_squared_error	.ipynb_checkpoints/utils-checkpoint.py	/^def total_squared_error(real, predict):$/;"	f
+total_squared_error	utils.py	/^def total_squared_error(real, predict):$/;"	f
+window	.ipynb_checkpoints/utils-checkpoint.py	/^window = 9$/;"	v
+window	utils.py	/^window = 9$/;"	v
