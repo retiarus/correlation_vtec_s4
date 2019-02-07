@@ -82,8 +82,8 @@ relative_error	.ipynb_checkpoints/utils-checkpoint.py	/^def relative_error(real,
 relative_error	utils.py	/^def relative_error(real, predict):$/;"	f
 second_order_derivative_time	.ipynb_checkpoints/utils-checkpoint.py	/^def second_order_derivative_time(data):$/;"	f
 second_order_derivative_time	utils.py	/^def second_order_derivative_time(data):$/;"	f
-smooth_signal	.ipynb_checkpoints/utils-checkpoint.py	/^def smooth_signal(sig):$/;"	f
-smooth_signal	utils.py	/^def smooth_signal(sig):$/;"	f
+smooth_signal	.ipynb_checkpoints/utils-checkpoint.py	/^def smooth_signal(sig, savitz=True):$/;"	f
+smooth_signal	utils.py	/^def smooth_signal(sig, savitz=True):$/;"	f
 to_datetime	.ipynb_checkpoints/utils-checkpoint.py	/^def to_datetime(date):$/;"	f
 to_datetime	utils.py	/^def to_datetime(date):$/;"	f
 total_squared_error	.ipynb_checkpoints/utils-checkpoint.py	/^def total_squared_error(real, predict):$/;"	f

@@ -444,6 +444,7 @@ def generate_and_avaliate_model(df,
                                 param_grid=None,
                                 random_state=42,
                                 simple=False,
+                                file=None,
                                 cut_value=0.2):
     if model is None:
         # generate default model RandomForest, when model is not defined
@@ -496,7 +497,7 @@ def generate_and_avaliate_model(df,
       
         clf.fit(X_train, y_train)
         best_parameters_estimator = clf.best_estimator_.get_params()
-        best_parameters_model = best_parameters['model'].get_params()
+        best_parameters_model = best_parameters_estimator['model'].get_params()
     
     # generate final model
     if param_grid is not None:
@@ -533,8 +534,13 @@ def generate_and_avaliate_model(df,
         
     print('Error for the time series sample:')
     df_errors = pd.DataFrame(errors)
-    print(df_errors.mean())
-
+    errors_mean = df_errors.mean()
+    print(errors_mean)
+    
+    if file is not None:
+        if param_grid is not None:
+            file.write(best_parameters_model)
+        
     # plot the time series predict against the real values
     ax = df_aux.plot(figsize=(18, 8));
     plt.xlabel('UT')
@@ -553,7 +559,7 @@ def generate_and_avaliate_model(df,
  
     plt.show()
     
-    return df_errors.mean().to_dict()
+    return errors_mean.to_dict()
 
 class MySet():
     def __init__(self, name, list_of_elements):
