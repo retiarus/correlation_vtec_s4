@@ -253,7 +253,11 @@ def is_night_partial(date, lat, long):
     ss = sun.get_sunset_time(date_date)
     ss_time = ss.time()
     
-    if ss_time <= date_time <= datetime.time(23, 59, 59):
+    end = datetime_ref.replace(hour=23, minute=59,second=59) + datetime.timedelta(hours=3)
+    start = datetime_ref.replace(hour=ss_time.hour,
+                                 minute=ss_time.minute,
+                                 second=ss_time.second) 
+    if start <= datetime_ref <= end:
         return 1.0
     else:
         return 0.0
@@ -267,7 +271,7 @@ def is_dawn_partial(date, lat, long):
     sr = sun.get_sunrise_time(date_date)
     sr_time = sr.time()
     
-    if datetime.time(0, 0) <= date_time < sr_time:
+    if datetime.time(3, 0) <= date_time < sr_time:
         return 1.0
     else:
         return 0.0
