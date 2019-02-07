@@ -27,10 +27,7 @@ from sklearn.preprocessing import StandardScaler
 from cartopy.feature import NaturalEarthFeature, BORDERS, LAND, COASTLINE, COLORS
 from cartopy.mpl.gridliner import LONGITUDE_FORMATTER, LATITUDE_FORMATTER
 
-curr_dir = os.path.abspath(os.path.curdir)
-os.chdir("/home/peregrinus/suntime")
-import suntime.__main__ as suntime
-os.chdir(curr_dir)
+import suntime
 
 default_location = "."
 local_tecmap_txt = os.path.join(default_location, 'data/tecmap_txt')
@@ -491,7 +488,7 @@ def generate_and_avaliate_model(df,
         clf = GridSearchCV(estimator=pipeline,
                            param_grid=param_grid,
                            cv=10,
-                           verbose=2,
+                           verbose=1,
                            n_jobs=-1,
                            scoring='neg_mean_squared_error')
       
